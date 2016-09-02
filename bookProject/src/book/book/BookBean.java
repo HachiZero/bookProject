@@ -2,6 +2,23 @@ package book.book;
 
 public class BookBean {
 	private String no, title, description, pubDate, coverSmallUrl, coverLargeUrl, publisher, author, translator;
+	private int priceStandard, priceEbook;
+
+	public int getPriceStandard() {
+		return priceStandard;
+	}
+
+	public void setPriceStandard(int priceStandard) {
+		this.priceStandard = priceStandard;
+	}
+
+	public int getPriceEbook() {
+		return priceEbook;
+	}
+
+	public void setPriceEbook(int priceEbook) {
+		this.priceEbook = priceEbook;
+	}
 
 	public String getCoverSmallUrl() {
 		return coverSmallUrl;
