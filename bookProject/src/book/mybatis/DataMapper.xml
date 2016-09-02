@@ -3,23 +3,23 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pro">
- <select id="getBooks" resultType="book.book.BookBean">
+ <select id="getBooks" resultType="book.book.bookDto">
   select * from book order by title
  </select>
  
- <select id="getBook" parameterType="string" resultType="book.book.BookBean">
+ <select id="getBook" parameterType="string" resultType="book.book.bookDto">
   select * from book where no=#{no}
  </select>
 
- <select id="getTopBook" parameterType="string" resultType="book.book.BookBean">
+ <select id="getTopBook" resultType="book.book.bookDto">
   select * from book limit 5
  </select>
   
- <insert id="insertBook" parameterType="book.book.BookBean">
+ <insert id="insertBook" parameterType="book.book.bookDto">
   insert into book(title, priceStandard, priceEbook, description, pubDate, coverSmallUrl, coverLargeUrl, publisher, author, translator) values(#{title}, #{priceStandard}, #{priceEbook}, #{description}, #{pubDate}, #{coverSmallUrl}, #{coverLargeUrl}, #{publisher}, #{author}, #{translator})
  </insert>
  
- <update id="updatbook" parameterType="book.book.BookBean">
+ <update id="updatbook" parameterType="book.book.bookDto">
   update book set title=#{title}, priceStandard=#{priceStandard}, priceEbook=#{priceEbook}, description=#{description}, pubDate=#{pubDate}, coverSmallUrl = #{coverSmallUrl}, coverLargeUrl = #{coverLargeUrl}, publisher=#{publisher}, author=#{author}, translator=#{translator} where no=#{no}
  </update>
  

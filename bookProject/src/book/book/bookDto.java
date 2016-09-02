@@ -3,6 +3,7 @@ package book.book;
 public class bookDto {
 	private String no, title, description, pubDate, coverSmallUrl, coverLargeUrl, publisher, author, translator;
 	private int priceStandard, priceEbook;
+	
 	public String getNo() {
 		return no;
 	}
