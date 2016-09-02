@@ -3,8 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
- <properties resource="book/myBatis/db.properties" />
-
+ <properties resource="a/db.properties" />
  <environments default="pro">
   <environment id="pro">
    <transactionManager type="JDBC" />
@@ -17,5 +16,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   </environment>
  </environments>
  <mappers>
+  <mapper resource="a/DataMapper.xml" />
  </mappers>
 </configuration>

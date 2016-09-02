@@ -3,28 +3,44 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pro">
- <!-- <select id="selectDataAll" resultType="dto"> -->
- <select id="selectDataAll" resultType="dto">
-  select * from membertab
+ <select id="getBooks" resultType="b.BookBean">
+  select * from ebook
  </select>
  
- <!-- 재사용 가능한 구문은 별도 작성 가능 -->
- <sql id="my1">id, name, password, regdate</sql>
- <sql id="my2">where id = #{id}</sql>
- 
- <select id="selectDataById" parameterType="string" resultType="dto" statementType="PREPARED">
-  select <include refid="my1" /> from membertab <include refid="my2" />
+ <select id="getBook" parameterType="string" resultType="b.BookBean">
+  select * from ebook where no=#{no}
  </select>
  
- <insert id="insertData" parameterType="dto">
-  insert into membertab values(#{id},#{name},#{password},now())
+ <insert id="insertBook" parameterType="b.BookBean">
+  insert into ebook(title, description, pubDate, coverSmallUrl, coverLargeUrl, publisher, author, translator) values(#{title}, #{description}, #{pubDate}, #{coverSmallUrl}, #{coverLargeUrl}, #{publisher}, #{author}, #{translator})
  </insert>
  
- <update id="updateData" parameterType="dto">
-  update membertab set name=#{name} <include refid="my2" />
+ <update id="updateBook" parameterType="b.BookBean">
+  update ebook set title=#{title}, description=#{description}, pubDate=#{pubDate}, coverSmallUrl = #{coverSmallUrl}, coverLargeUrl = #{coverLargeUrl}, publisher=#{publisher}, author=#{author}, translator=#{translator} where no=#{no}
  </update>
  
- <delete id="deleteData" parameterType="int">
-  delete from membertab <include refid="my2" />
+ <delete id="deleteBook" parameterType="String">
+  delete from ebook where no=#{no}
+ </delete>
+ 
+ 
+  <select id="getMembers" resultType="ArrayList">
+  select * from member
+ </select>
+ 
+ <select id="getMember" parameterType="string" resultType="b.MemberBean">
+  select * from member where no=#{no}
+ </select>
+ 
+ <insert id="insertMember" parameterType="b.MemberBean">
+  insert into member(id, pwd, name, email, gaibil) values(#{id}, #{pwd}, #{name}, #{email}, date_format(now(), "%Y-%m-%d"))
+ </insert>
+ 
+ <update id="updateMember" parameterType="b.MemberBean">
+  update member set pwd=#{pwd}, name=#{name}, email=#{email} where no=#{no}
+ </update>
+ 
+ <delete id="deleteMember" parameterType="String">
+  delete from member where no=#{no}
  </delete>
 </mapper>
