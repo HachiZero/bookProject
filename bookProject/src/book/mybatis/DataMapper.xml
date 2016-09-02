@@ -3,24 +3,28 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pro">
- <select id="getBooks" resultType="b.BookBean">
-  select * from ebook
+ <select id="getBooks" resultType="book.book.BookBean">
+  select * from book order by title
  </select>
  
- <select id="getBook" parameterType="string" resultType="b.BookBean">
-  select * from ebook where no=#{no}
+ <select id="getBook" parameterType="string" resultType="book.book.BookBean">
+  select * from book where no=#{no}
  </select>
- 
- <insert id="insertBook" parameterType="b.BookBean">
-  insert into ebook(title, description, pubDate, coverSmallUrl, coverLargeUrl, publisher, author, translator) values(#{title}, #{description}, #{pubDate}, #{coverSmallUrl}, #{coverLargeUrl}, #{publisher}, #{author}, #{translator})
+
+ <select id="getTopBook" parameterType="string" resultType="book.book.BookBean">
+  select * from book limit 5
+ </select>
+  
+ <insert id="insertBook" parameterType="book.book.BookBean">
+  insert into book(title, priceStandard, priceEbook, description, pubDate, coverSmallUrl, coverLargeUrl, publisher, author, translator) values(#{title}, #{priceStandard}, #{priceEbook}, #{description}, #{pubDate}, #{coverSmallUrl}, #{coverLargeUrl}, #{publisher}, #{author}, #{translator})
  </insert>
  
- <update id="updateBook" parameterType="b.BookBean">
-  update ebook set title=#{title}, description=#{description}, pubDate=#{pubDate}, coverSmallUrl = #{coverSmallUrl}, coverLargeUrl = #{coverLargeUrl}, publisher=#{publisher}, author=#{author}, translator=#{translator} where no=#{no}
+ <update id="updatbook" parameterType="book.book.BookBean">
+  update book set title=#{title}, priceStandard=#{priceStandard}, priceEbook=#{priceEbook}, description=#{description}, pubDate=#{pubDate}, coverSmallUrl = #{coverSmallUrl}, coverLargeUrl = #{coverLargeUrl}, publisher=#{publisher}, author=#{author}, translator=#{translator} where no=#{no}
  </update>
  
- <delete id="deleteBook" parameterType="String">
-  delete from ebook where no=#{no}
+ <delete id="deletbook" parameterType="String">
+  delete from book where no=#{no}
  </delete>
  
  
@@ -28,16 +32,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   select * from member
  </select>
  
- <select id="getMember" parameterType="string" resultType="b.MemberBean">
+ <select id="getMember" parameterType="string" resultType="book.member.MemberBean">
   select * from member where no=#{no}
  </select>
  
- <insert id="insertMember" parameterType="b.MemberBean">
+ <insert id="insertMember" parameterType="book.member.MemberBean">
   insert into member(id, pwd, name, email, gaibil) values(#{id}, #{pwd}, #{name}, #{email}, date_format(now(), "%Y-%m-%d"))
  </insert>
  
- <update id="updateMember" parameterType="b.MemberBean">
+ <update id="updateMember" parameterType="book.member.MemberBean">
   update member set pwd=#{pwd}, name=#{name}, email=#{email} where no=#{no}
+ </update>
+ 
+ <update id="updatePoint" parameterType="book.member.MemberBean">
+  update member set point=#{point} where no=#{no}
  </update>
  
  <delete id="deleteMember" parameterType="String">
