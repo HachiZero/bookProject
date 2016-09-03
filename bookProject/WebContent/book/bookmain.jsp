@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="processDao" class="book.book.BookProcessDao" />    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%ArrayList<bookDto> listTop = (ArrayList)processDao.getTopBook();%>
 <%ArrayList<bookDto> listMain = (ArrayList)processDao.getBooks();%>     
 <!DOCTYPE html>
@@ -27,15 +28,42 @@
 <!-- top5 slide list end -->
 &nbsp;<p/>&nbsp;<p/>
 <!-- main book list start -->
-  <c:set var="cnt" value="0" />
-  <c:forEach var="list2" items="<%=listMain %>">
-    <a href="${list2.no }"><img src="${list2.coverSmallUrl }"></a>
-    <c:set var="cnt" value="${cnt+1 }" />
-    <c:if test="${cnt == 3}">
-    	<c:set var="cnt" value="0" />
-    	&nbsp;<p/>
-    </c:if>
-  </c:forEach>
+  <div class="row">
+  	<c:set var="cnt" value="0" />
+  	<c:forEach var="list2" items="<%=listMain %>">
+      	<div class="col s3">
+      		<div class="book-info">
+    			<a href="${list2.no }">
+    				<img src="${list2.coverLargeUrl }">
+    				<div class="dimmer"></div>
+    			</a>
+    			<div class="book-desc">
+    				<c:set var="title1" value="${list2.title }" />
+    				<c:set var="title2" value="${fn:substring(title1, 0, 11) }" />
+    				<div class="book-title">
+    					${title2 }    				
+    					<c:if test="${fn:length(title1) > 11 }">...</c:if>
+    					<hr class="title-line">    					
+    				</div>
+    				<p class="star_rating">
+					    <a href="#">★</a>
+					    <a href="#">★</a>
+					    <a href="#">★</a>
+					    <a href="#">★</a>
+					    <a href="#">★</a>
+					</p> 
+   					<span class="favorite">♥ wish list</span>
+    				
+	    		</div>
+	    	</div>
+      	</div>
+    	<c:set var="cnt" value="${cnt+1 }" />
+    	<c:if test="${cnt == 4}">
+    		<c:set var="cnt" value="0" />
+    		<p/>&nbsp;
+    	</c:if>
+	</c:forEach>
+  </div>
 <!-- main book list end -->  
 </body>
 </html>
